@@ -9,20 +9,20 @@ export function ForceGraph({ linksData, nodesData, nodeHoverTooltip }) {
     let destroyFn;
 
     if (containerRef.current) {
-   let test = containerRef.current
-
-    //   while (test.firstChild) {
-    // test=test.firstChild.removeChild(test.firstChild);
-    //   }
-      const { destroy } = runForceGraph(containerRef.current, linksData, nodesData, nodeHoverTooltip);
+      while (containerRef.current.firstChild) {
+        containerRef.current.removeChild(containerRef.current.firstChild);
+      }
+      const { destroy } = runForceGraph(
+        containerRef.current,
+        linksData,
+        nodesData,
+        nodeHoverTooltip
+      );
       destroyFn = destroy;
-      
     }
 
     return destroyFn;
-  });
-
-  
+  }, [linksData, nodesData]);
 
   return <div ref={containerRef} className={styles.container} />;
 }
